@@ -1,0 +1,53 @@
+version: '3.2'
+
+services:
+  mysql:
+    ports:
+      - 3306:3306
+    image: library/mysql:8.0.22
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=database
+
+  web:
+    image: nginx:latest
+    ports:
+      - 2080:2080
+      - 3080:3080
+    volumes:
+      - ./docker/nginx/local.conf:/etc/nginx/conf.d/local.conf
+    volumes_from:
+      - app
+    links:
+      - php
+    entrypoint: nginx -g 'daemon off;'
+
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/composer/Dockerfile
+    ports:
+      - 82:8082
+    volumes:
+      - ./app:/app
+    tty: true
+
+  php:
+    ports:
+      - 9000
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    depends_on:
+      - app
+      - mysql
+    volumes:
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    volumes_from:
+      - app
+    extra_hosts:
+      - "test.local:192.168.11.1"
+    links:
+      - mysql

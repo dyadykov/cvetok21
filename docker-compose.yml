@@ -23,6 +23,7 @@ services:
     links:
       - php
     entrypoint: nginx -g 'daemon off;'
+    working_dir: /app
 
   app:
     build:
@@ -32,7 +33,9 @@ services:
       - 82:8082
     volumes:
       - ./app:/app
+#      - ./docker/composer/entrypoint.sh:/entrypoint.sh
     tty: true
+#    entrypoint: /entrypoint.sh
 
   php:
     ports:
@@ -51,3 +54,6 @@ services:
       - "test.local:192.168.11.1"
     links:
       - mysql
+
+volumes:
+  app:

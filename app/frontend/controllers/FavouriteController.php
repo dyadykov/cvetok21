@@ -5,7 +5,7 @@ namespace frontend\controllers;
 
 use yii\web\Controller;
 
-class FavoritController extends Controller
+class FavouriteController extends Controller
 {
     public function actionIndex()
     {

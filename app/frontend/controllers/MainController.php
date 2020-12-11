@@ -11,12 +11,6 @@ class MainController extends Controller
 {
     public function actionIndex()
     {
-        $activeDataProvider = new ActiveDataProvider([
-            'query' => User::find()
-        ]);
-
-        return $this->render('index', [
-            'activeDataProvider' => $activeDataProvider,
-        ]);
+         return $this->render('index');
     }
 }

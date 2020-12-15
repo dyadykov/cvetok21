@@ -33,7 +33,6 @@ class Slide extends ActiveRecord
             [['src', 'url', 'alt'], 'string'],
             ['isActive', 'boolean'],
             [['pos', 'src', 'url', 'alt'], 'required', 'message' => 'Поле "{attribute}" не может быть пустым.'],
-
         ];
     }
 

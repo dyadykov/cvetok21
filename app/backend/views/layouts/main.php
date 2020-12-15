@@ -36,6 +36,7 @@ AppAsset::register($this);
 
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/']],
+        ['label' => 'Слайды', 'url' => ['/slide']],
     ];
 
     if (Yii::$app->user->isGuest) {

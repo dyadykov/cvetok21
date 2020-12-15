@@ -3,14 +3,17 @@
 
 namespace frontend\controllers;
 
-use common\models\User;
-use yii\data\ActiveDataProvider;
+use frontend\models\Slide;
 use yii\web\Controller;
 
 class MainController extends Controller
 {
     public function actionIndex()
     {
-         return $this->render('index');
+        $slides = Slide::find()->orderBy('pos')->all();
+
+        return $this->render('index', [
+            'slides' => $slides,
+        ]);
     }
 }

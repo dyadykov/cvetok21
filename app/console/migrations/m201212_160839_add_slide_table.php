@@ -28,6 +28,6 @@ class m201212_160839_add_slide_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('slide');
+        $this->dropTable(Slide::tableName());
     }
 }

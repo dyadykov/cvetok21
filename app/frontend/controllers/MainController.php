@@ -4,9 +4,8 @@
 namespace frontend\controllers;
 
 use frontend\models\Slide;
-use yii\web\Controller;
 
-class MainController extends Controller
+class MainController extends CommonController
 {
     public function actionIndex()
     {

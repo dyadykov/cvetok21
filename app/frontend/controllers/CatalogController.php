@@ -4,9 +4,8 @@
 namespace frontend\controllers;
 
 use frontend\models\Product;
-use yii\web\Controller;
 
-class CatalogController extends Controller
+class CatalogController extends CommonController
 {
     public function actionIndex()
     {

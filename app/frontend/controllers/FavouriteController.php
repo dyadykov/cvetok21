@@ -3,9 +3,7 @@
 
 namespace frontend\controllers;
 
-use yii\web\Controller;
-
-class FavouriteController extends Controller
+class FavouriteController extends CommonController
 {
     public function actionIndex()
     {

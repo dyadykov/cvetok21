@@ -3,13 +3,10 @@
 
 namespace frontend\controllers;
 
-use yii\web\Controller;
-
-class ContactController extends Controller
+class ContactController extends CommonController
 {
     public function actionIndex()
     {
         return $this->render('index');
     }
-
 }

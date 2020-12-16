@@ -1,14 +1,21 @@
 <?php
 
-/* @var $this yii\web\View */
+/**
+ * @var $this yii\web\View
+ * @var Product[] $products
+ * @var Pagination $productsPagination
+ */
 
+use common\widgets\Cards;
+use frontend\models\Product;
 use frontend\models\Slide;
 use yii\bootstrap4\Carousel;
+use yii\data\Pagination;
 use yii\helpers\Html;
 
 $this->title = 'Цветы в Чебоксарах';
 
-echo Html::tag('h3','Главная страница');
+echo Html::tag('h3', 'Главная страница');
 
 /** @var Slide[] $slides */
 $mappedSlides = array_map(function ($slide) {
@@ -22,7 +29,4 @@ echo Carousel::widget([
     'items' => $mappedSlides
 ]);
 
-?>
-
-<br>
-- Каталог: Версия поменьше
+echo Cards::widget(['models' => $products, 'pagination' => $productsPagination]);

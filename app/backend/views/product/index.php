@@ -17,9 +17,9 @@ echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
         'id',
-        'src',
         'alt',
         'isActive',
+        'isFavourite',
         'title',
         'description',
         'price',

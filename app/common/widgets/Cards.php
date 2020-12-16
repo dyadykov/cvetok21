@@ -21,8 +21,8 @@ class Cards
      */
     public function widget(array $params): string
     {
-        $models = $params ['models'];
-        $pagination = $params ['pagination'];
+        $models = $params['models'];
+        $pagination = $params['pagination'];
         $cards = '';
 
         foreach ($models as $model) {

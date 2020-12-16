@@ -16,6 +16,7 @@ echo $form->field($model, 'alt')->textInput();
 echo $form->field($model, 'description')->textInput();
 echo $form->field($model, 'title')->textInput();
 echo $form->field($model, 'isActive')->checkbox();
+echo $form->field($model, 'isFavourite')->checkbox();
 echo $form->field($model, 'price')->textInput(['type' => 'number']);
 
 ?>

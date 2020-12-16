@@ -27,7 +27,7 @@ class Cards
 
         foreach ($models as $model) {
             $card = '<div class="card text-center" >
-                        <img class="card-img-top" src = "' . $model->src . '" alt = "<?= $model->alt ?>" >
+                        <img class="card-img-top" src = "' . $model->src . '" alt = "' . $model->alt .'" >
                             <div class="card-body" >
                                 <h5 class="card-title" > ' . $model->title . '</h5 >
                                 <p class="card-text" > ' . $model->description . '</p >

@@ -19,7 +19,7 @@ class Cards
      * @return string выходящая строка HTML кода
      * @throws Exception
      */
-    public function widget(array $params): string
+    public static function widget(array $params): string
     {
         $models = $params['models'];
         $pagination = $params['pagination'];

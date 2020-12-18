@@ -1,4 +1,7 @@
 <?php
+
+use mirocow\yandexmaps\Api;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -12,6 +15,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'yandexMapsApi' => [
+            'class' => Api::class,
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

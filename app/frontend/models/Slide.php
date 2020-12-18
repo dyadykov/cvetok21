@@ -27,7 +27,6 @@ class Slide extends ActiveRecord
 
     public function rules()
     {
-        // TODO изучить rules в документации движка в интернете
         return [
             [['id', 'pos'], 'integer', 'message' => 'Поле "{attribute}" должно быть числом'],
             [['src', 'url', 'alt'], 'string'],

@@ -38,6 +38,7 @@ AppAsset::register($this);
         ['label' => 'Главная', 'url' => ['/']],
         ['label' => 'Слайды', 'url' => ['/slide']],
         ['label' => 'Продукты', 'url' => ['/product']],
+        ['label' => 'Магазины', 'url' => ['/shop']],
     ];
 
     if (Yii::$app->user->isGuest) {

@@ -10,6 +10,5 @@ $this->title = 'Контакты';
 
 echo Html::tag('h3', 'Связаться с нами можете по контактам магазинов');
 
-// TODO 3 добавить шапку
 /** @var Shop[] $shops */
 echo Shops::widget(['models' => $shops]);

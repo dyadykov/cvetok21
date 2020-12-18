@@ -12,7 +12,6 @@ use mirocow\yandexmaps\objects\Placemark;
 
 class Shops
 {
-    // TODO 3 переделать PHPDoc
     /**
      * Отрисовывает контакты магазинов и ихнее положение на карте
      *

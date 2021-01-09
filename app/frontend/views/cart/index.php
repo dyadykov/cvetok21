@@ -1,9 +1,15 @@
 <?php
 
-/* @var $this yii\web\View */
+/**
+ * @var $this yii\web\View
+ * @var \frontend\models\CartProduct[] $cartProducts
+ */
+
+use common\widgets\Cart;
+use yii\helpers\Html;
 
 $this->title = 'Корзина';
-?>
-Корзина
-<br>
-- корзина товаров
+
+echo Html::tag('h3', 'Корзина покупок');
+
+echo Cart::widget($cartProducts, $this) ?>

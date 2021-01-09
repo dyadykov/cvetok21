@@ -39,13 +39,13 @@ AppAsset::register($this);
         ['label' => 'Каталог', 'url' => ['/catalog']],
         ['label' => 'Контакты', 'url' => ['/contact']],
         ['label' => 'Избранное', 'url' => ['/favourite']],
-        ['label' => 'Корзина', 'url' => ['/cart']],
     ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Корзина', 'url' => ['/cart']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

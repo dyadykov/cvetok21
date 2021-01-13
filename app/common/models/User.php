@@ -1,5 +1,8 @@
 <?php
+
+
 namespace common\models;
+
 
 use frontend\models\Cart;
 use Yii;
@@ -222,4 +225,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Cart::class, ['user_id' => 'id'])->orderBy(["id" => SORT_DESC]);
     }
+
+    public function createCart()
+    {
+        $cart = new Cart;
+        $cart->user_id = $this->id;
+        return $cart->save();
+    }
 }
+

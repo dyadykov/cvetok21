@@ -3,8 +3,8 @@
 
 namespace frontend\controllers;
 
+
 use common\models\User;
-use frontend\models\Cart;
 use frontend\models\CartProduct;
 use Yii;
 use yii\filters\AccessControl;
@@ -64,8 +64,8 @@ class CartController extends CommonController
 
     public function actionDelete()
     {
-        $deleteId = Yii::$app->request->get()['id'];
-        (Cart::findOne($deleteId))->delete();
+        Yii::$app->user->getIdentity()->cart->unlinkAll('products', true);
+
         $this->redirect('/main');
     }
 }

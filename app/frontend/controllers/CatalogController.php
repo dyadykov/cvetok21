@@ -3,6 +3,8 @@
 
 namespace frontend\controllers;
 
+
+use frontend\models\CartProduct;
 use frontend\models\Product;
 use frontend\models\SearchForm;
 use Yii;
@@ -24,8 +26,7 @@ class CatalogController extends CommonController
                 ->andFilterWhere(['<=', 'price', $searchForm->priceMax])
                 ->andFilterWhere(['isFavourite' => $searchForm->isFavourite ?: null])
                 ->andFilterWhere(['title' => $searchForm->title])
-                ->andFilterWhere(['like', 'description', $searchForm->description])
-;
+                ->andFilterWhere(['like', 'description', $searchForm->description]);
         } elseif (!empty($searchData)) {
             Yii::$app->session->setFlash('error', "Фильтр не сработал");
         }
@@ -45,5 +46,19 @@ class CatalogController extends CommonController
             'pagination' => $pagination,
             'searchForm' => $searchForm,
         ]);
+    }
+
+    public function actionAddToCart()
+    {
+        $productId = Yii::$app->request->post()['product_id'];
+        $cart = Yii::$app->user->getIdentity()->cart;
+
+        $cartProduct = CartProduct::find()->where(['cart_id' => $cart->id, 'product_id' => $productId])->one()
+            ?: new CartProduct(['cart_id' => $cart->id, 'product_id' => $productId]);
+
+        $cartProduct->quantity += 1;
+        $cartProduct->save();
+
+        Yii::$app->session->setFlash('success', 'Добавлено в коризну');
     }
 }

@@ -29,4 +29,4 @@ echo Carousel::widget([
     'items' => $mappedSlides
 ]);
 
-echo Cards::widget(['models' => $products, 'pagination' => $productsPagination]);
+echo Cards::widget($products, $productsPagination, $this);

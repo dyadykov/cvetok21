@@ -21,7 +21,7 @@ $this->title = 'Каталог';
 </h1>
 <div class="row">
     <div class="col-9">
-        <?= Cards::widget(['models' => $models, 'pagination' => $pagination]) ?>
+        <?= Cards::widget($models, $pagination, $this) ?>
     </div>
     <div class="col-3">
         <?php

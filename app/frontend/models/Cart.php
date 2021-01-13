@@ -58,15 +58,6 @@ class Cart extends ActiveRecord
             ->via('cartProducts');
     }
 
-    public function setProducts($ids = [])
-    {
-        $this->save();
-        $this->unlinkAll('products', true);
-        foreach ($ids as $id) {
-            $this->link('products', Product::findOne($id));
-        }
-    }
-
     public function afterDelete()
     {
         $this->unlinkAll('products', true);

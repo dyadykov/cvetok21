@@ -14,15 +14,15 @@ use yii\db\ActiveRecord;
  * @property integer $user_id id пользователя
  * @property User $user пользователь
  * @property Product[] $products пользователь
- * @property CartProduct[] $cartProducts продукты из корзины
+ * @property FavouriteProduct[] $favouriteProducts продукты из корзины
  *
  * @package frontend\models
  */
-class Cart extends ActiveRecord
+class Favourite extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{%cart}}';
+        return '{{%favourite}}';
     }
 
     public function rules()
@@ -38,7 +38,6 @@ class Cart extends ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'id пользователя',
-            'username' => 'id пользователя',
         ];
     }
 
@@ -47,15 +46,15 @@ class Cart extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getCartProducts()
+    public function getFavouriteProducts()
     {
-        return $this->hasMany(CartProduct::class, ['cart_id' => 'id']);
+        return $this->hasMany(FavouriteProduct::class, ['favourite_id' => 'id']);
     }
 
     public function getProducts()
     {
         return $this->hasMany(Product::class, ['id' => 'product_id'])
-            ->via('cartProducts');
+            ->via('favouriteProducts');
     }
 
     public function setProducts($ids = [])

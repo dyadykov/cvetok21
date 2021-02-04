@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $title название
  * @property string $description описание
  * @property string $price цена
- * @property boolean $isFavourite избранный продукт
+ * @property boolean $isPopular популярный продукт
  *
  * @package frontend\models
  */
@@ -32,8 +32,8 @@ class Product extends ActiveRecord
         return [
             ['id', 'integer'],
             [['src', 'alt', 'title', 'description', 'price'], 'string'],
-            [['isActive', 'isFavourite'], 'boolean'],
-            [['src', 'alt', 'title', 'description', 'price', 'isActive', 'isFavourite'], 'required'],
+            [['isActive', 'isPopular'], 'boolean'],
+            [['src', 'alt', 'title', 'description', 'price', 'isActive', 'isPopular'], 'required'],
         ];
     }
 
@@ -47,7 +47,7 @@ class Product extends ActiveRecord
             'title' => 'Название',
             'description' => 'Описание',
             'price' => 'Цена',
-            'isFavourite' => 'Избранный продукт',
+            'isPopular' => 'Избранный продукт',
         ];
     }
 }

@@ -4,7 +4,9 @@
 namespace frontend\controllers;
 
 
+use common\models\User;
 use frontend\models\CartProduct;
+use frontend\models\FavouriteProduct;
 use frontend\models\Product;
 use frontend\models\SearchForm;
 use Yii;
@@ -24,7 +26,7 @@ class CatalogController extends CommonController
             $activeQuery
                 ->andFilterWhere(['>=', 'price', $searchForm->priceMin])
                 ->andFilterWhere(['<=', 'price', $searchForm->priceMax])
-                ->andFilterWhere(['isFavourite' => $searchForm->isFavourite ?: null])
+                ->andFilterWhere(['isPopular' => $searchForm->isPopular ?: null])
                 ->andFilterWhere(['title' => $searchForm->title])
                 ->andFilterWhere(['like', 'description', $searchForm->description]);
         } elseif (!empty($searchData)) {
@@ -60,5 +62,34 @@ class CatalogController extends CommonController
         $cartProduct->save();
 
         Yii::$app->session->setFlash('success', 'Добавлено в коризну');
+    }
+
+    public function actionAddToFav()
+    {
+        $productId = Yii::$app->request->post()['product_id'];
+        /** @var User $user */
+        $user = Yii::$app->user->getIdentity();
+        $favourite = $user->favourite;
+
+        $favouriteProduct = new FavouriteProduct(['favourite_id' => $favourite->id, 'product_id' => $productId]);
+
+        $favouriteProduct->save();
+
+        Yii::$app->session->setFlash('success', 'Добавлено в избранное');
+    }
+
+    public function actionDropFromFav()
+    {
+        $productId = Yii::$app->request->post()['product_id'];
+
+        /** @var User $user */
+        $user = Yii::$app->user->getIdentity();
+        $favourite = $user->favourite;
+
+        $favouriteProduct = FavouriteProduct::find()->where(['favourite_id' => $favourite->id, 'product_id' => $productId])->one();
+
+        $favouriteProduct->delete();
+
+        Yii::$app->session->setFlash('danger', 'Удалено из избранного');
     }
 }

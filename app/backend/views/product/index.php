@@ -19,7 +19,7 @@ echo GridView::widget([
         'id',
         'alt',
         'isActive',
-        'isFavourite',
+        'isPopular',
         'title',
         'description',
         'price',

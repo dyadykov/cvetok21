@@ -5,6 +5,7 @@ namespace common\models;
 
 
 use frontend\models\Cart;
+use frontend\models\Favourite;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -26,6 +27,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property Cart $cart
+ * @property Favourite $favourite
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -231,6 +233,18 @@ class User extends ActiveRecord implements IdentityInterface
         $cart = new Cart;
         $cart->user_id = $this->id;
         return $cart->save();
+    }
+
+    public function getFavourite()
+    {
+        return $this->hasOne(Favourite::class, ['user_id' => 'id'])->orderBy(["id" => SORT_DESC]);
+    }
+
+    public function createFavourite()
+    {
+        $favourite = new Favourite;
+        $favourite->user_id = $this->id;
+        return $favourite->save();
     }
 }
 

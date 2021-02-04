@@ -9,8 +9,8 @@ class SearchForm extends \yii\base\Model
     const TITLE_NOT_CHOSEN = 'Выберите название';
 
 
-    /** @var boolean $isFavourite Выбрать из избранных */
-    public $isFavourite;
+    /** @var boolean $isPopular Выбрать из популярный */
+    public $isPopular;
 
     /** @var int $priceMin минимальная цена */
     public $priceMin;
@@ -27,7 +27,7 @@ class SearchForm extends \yii\base\Model
     public function rules()
     {
         return [
-            ['isFavourite', 'boolean'],
+            ['isPopular', 'boolean'],
             [['priceMin', 'priceMax'], 'number'],
             [['title', 'description'], 'string'],
         ];
@@ -36,7 +36,7 @@ class SearchForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            'isFavourite' => 'Выбрать из избранных',
+            'isPopular' => 'Выбрать из избранных',
             'priceMin'=> 'Цена мин',
             'priceMax' => 'Цена мах',
             'title' => 'Название',

@@ -15,7 +15,7 @@ class SearchFilter
         $titles = Product::find()->select('title')->where(['isActive' => 1])->column();
         $options = ['' => SearchForm::TITLE_NOT_CHOSEN] + array_combine($titles, $titles);
 
-        $isFavourite = $form->field($searchForm, 'isFavourite')->checkbox();
+        $isPopular = $form->field($searchForm, 'isPopular')->checkbox();
         $priceMin = $form->field($searchForm, 'priceMin')->label(false)->input('number');
         $priceMax = $form->field($searchForm, 'priceMax')->label(false)->input('number');
         $title = $form->field($searchForm, 'title')->dropdownList($options);
@@ -23,7 +23,7 @@ class SearchFilter
 
         return "
             <label>Фильтр</label>
-            $isFavourite
+            $isPopular
             <hr>
             <label>Цены</label>
             <div class='form-row'>

@@ -36,6 +36,7 @@ abstract class CommonController extends Controller
         if ($model->load(Yii::$app->request->getBodyParams())) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', self::MODEL_SAVED);
+                $this->redirect($this->modelUrl . "/view?id=" . $model->id);
             } else {
                 Yii::$app->session->setFlash('error', self::MODEL_NOT_SAVED);
             }

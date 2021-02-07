@@ -12,7 +12,34 @@ use yii\bootstrap4\NavBar;
 use yii\web\View;
 
 AppAsset::register($this);
+
+
+$menuItems = [
+    ['label' => 'Каталог', 'url' => ['/catalog']],
+    ['label' => 'Контакты', 'url' => ['/contact']],
+    ['label' => 'Избранное', 'url' => ['/favourite']],
+];
+
+if (Yii::$app->user->isGuest) {
+    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+} else {
+    $menuItems[] = ['label' => 'Корзина', 'url' => ['/cart']];
+    $menuItems[] = '<li>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton('Выйти (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link'])
+        . Html::endForm()
+        . '</li>';
+}
+
+
+
+
+
 ?>
+
+<?php // ДАЛЕЕ ШАБЛОН ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -29,45 +56,13 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-    ]);
-
-    $menuItems = [
-        ['label' => 'Главная', 'url' => ['/main']],
-        ['label' => 'Каталог', 'url' => ['/catalog']],
-        ['label' => 'Контакты', 'url' => ['/contact']],
-        ['label' => 'Избранное', 'url' => ['/favourite']],
-    ];
-
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = ['label' => 'Корзина', 'url' => ['/cart']];
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
-        'items' => $menuItems,
-    ]);
-
+    NavBar::begin(['brandLabel' => Yii::$app->name, 'brandUrl' => Yii::$app->homeUrl]);
+    echo Nav::widget(['options' => ['class' => 'navbar-inverse navbar-fixed-top'], 'items' => $menuItems]);
     NavBar::end();
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
@@ -76,8 +71,7 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <p class="float-right"></p>
     </div>
 </footer>
 

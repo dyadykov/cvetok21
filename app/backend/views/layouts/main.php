@@ -35,7 +35,6 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['/']],
         ['label' => 'Слайды', 'url' => ['/slide']],
         ['label' => 'Продукты', 'url' => ['/product']],
         ['label' => 'Магазины', 'url' => ['/shop']],
@@ -48,7 +47,7 @@ AppAsset::register($this);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выйти (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link']
             )
             . Html::endForm()
@@ -76,7 +75,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <p class="float-right"></p>
     </div>
 </footer>
 

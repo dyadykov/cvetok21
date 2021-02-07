@@ -47,8 +47,13 @@ class CartController extends CommonController
         $quantity = $data['quantity'];
         $cartProduct = CartProduct::findOne($id);
         $oldQuantity = $cartProduct->quantity;
-        $cartProduct->quantity = $quantity;
-        $cartProduct->save();
+
+        if ($quantity > 0) {
+            $cartProduct->quantity = $quantity;
+            $cartProduct->save();
+        } else {
+            $cartProduct->delete();
+        }
 
         if ($oldQuantity > $quantity) {
             $action = "Убрали";

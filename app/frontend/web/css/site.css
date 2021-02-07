@@ -11,7 +11,14 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 20px 15px 20px;
+}
+
+.wrap > .container > * {
+    margin-bottom: 20px;
+}
+.wrap > .container > *:last-of-type {
+    margin-bottom: 0;
 }
 
 .footer {

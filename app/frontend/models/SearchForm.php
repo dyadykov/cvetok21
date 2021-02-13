@@ -36,7 +36,7 @@ class SearchForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            'isPopular' => 'Выбрать из избранных',
+            'isPopular' => 'Выбрать из популярных',
             'priceMin'=> 'Цена мин',
             'priceMax' => 'Цена мах',
             'title' => 'Название',

@@ -24,12 +24,13 @@ class Cards
      * Отрисовывает карточки товаров с пагинацией страниц
      *
      * @param Model[] $models массив моделей с свойствами src, alt, title, descrittion, price
-     * @param Pagination $pagination
+     * @param Pagination|null $pagination
      * @param View $view
      * @return string выходящая строка HTML кода
      * @throws Throwable
+     * @throws \yii\base\InvalidConfigException
      */
-    public static function widget(array $models, Pagination $pagination, View $view): string
+    public static function widget(array $models, ?Pagination $pagination, View $view): string
     {
         $view->registerJs('
             $(".' . self::ADD_TO_CART . '").click(function(){
@@ -117,6 +118,8 @@ class Cards
             $cards .= $card;
         }
 
-        return '<div class="card-columns">' . $cards . '</div>' . LinkPager::widget(['pagination' => $pagination]);
+        $pagHtml = $pagination ? LinkPager::widget(['pagination' => $pagination]) : "";
+
+        return '<div class="card-columns">' . $cards . '</div>' . $pagHtml;
     }
 }

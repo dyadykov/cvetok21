@@ -4,10 +4,7 @@
 namespace common\models;
 
 
-use frontend\models\Cart;
-use frontend\models\Favourite;
 use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -77,7 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['auth_key' => $token]);
     }
 
     /**
@@ -225,26 +222,11 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getCart()
     {
-        return $this->hasOne(Cart::class, ['user_id' => 'id'])->orderBy(["id" => SORT_DESC]);
-    }
-
-    public function createCart()
-    {
-        $cart = new Cart;
-        $cart->user_id = $this->id;
-        return $cart->save();
+        return $this->hasMany(Cart::class, ['user_id' => 'id']);
     }
 
     public function getFavourite()
     {
-        return $this->hasOne(Favourite::class, ['user_id' => 'id'])->orderBy(["id" => SORT_DESC]);
-    }
-
-    public function createFavourite()
-    {
-        $favourite = new Favourite;
-        $favourite->user_id = $this->id;
-        return $favourite->save();
+        return $this->hasMany(Favourite::class, ['user_id' => 'id']);
     }
 }
-

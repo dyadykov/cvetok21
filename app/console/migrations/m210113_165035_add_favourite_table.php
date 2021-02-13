@@ -1,8 +1,5 @@
 <?php
 
-use frontend\models\Favourite;
-use frontend\models\FavouriteProduct;
-use frontend\models\Product;
 use yii\db\Migration;
 
 /**
@@ -15,14 +12,14 @@ class m210113_165035_add_favourite_table extends Migration
      */
     public function safeUp()
     {
-        $this->renameColumn(Product::tableName(), 'isFavourite', 'isPopular');
+        $this->renameColumn('product', 'isFavourite', 'isPopular');
 
-        $this->createTable(Favourite::tableName(), [
+        $this->createTable('favourite', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
         ]);
 
-        $this->createTable(FavouriteProduct::tableName(),[
+        $this->createTable('favourite_product', [
             'id' => $this->primaryKey(),
             'favourite_id' => $this->integer(),
             'product_id' => $this->integer(),
@@ -34,8 +31,8 @@ class m210113_165035_add_favourite_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable(FavouriteProduct::tableName());
-        $this->dropTable(Favourite::tableName());
-        $this->renameColumn(Product::tableName(), 'isPopular', 'isFavourite');
+        $this->dropTable('favourite_product');
+        $this->dropTable('favourite');
+        $this->renameColumn('product', 'isPopular', 'isFavourite');
     }
 }

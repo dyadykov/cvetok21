@@ -7,8 +7,8 @@
  */
 
 use common\widgets\Cards;
-use frontend\models\Product;
-use frontend\models\Slide;
+use common\models\Product;
+use common\models\Slide;
 use yii\bootstrap4\Carousel;
 use yii\data\Pagination;
 use yii\helpers\Html;

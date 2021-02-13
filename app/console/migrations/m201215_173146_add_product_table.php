@@ -1,6 +1,5 @@
 <?php
 
-use frontend\models\Product;
 use yii\db\Migration;
 
 /**
@@ -13,7 +12,7 @@ class m201215_173146_add_product_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable(Product::tableName(), [
+        $this->createTable('product', [
             'id' => $this->primaryKey(),
             'src' => $this->string(),
             'alt' => $this->string(),
@@ -29,6 +28,6 @@ class m201215_173146_add_product_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable(Product::tableName());
+        $this->dropTable('product');
     }
 }

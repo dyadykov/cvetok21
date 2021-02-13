@@ -3,7 +3,7 @@
 
 namespace backend\controllers;
 
-use frontend\models\Slide;
+use common\models\Slide;
 
 class SlideController extends CommonController
 {

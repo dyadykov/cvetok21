@@ -9,7 +9,7 @@
 
 use common\widgets\Cards;
 use common\widgets\SearchFilter;
-use frontend\models\Product;
+use common\models\Product;
 use frontend\models\SearchForm;
 use yii\bootstrap4\ActiveForm;
 use yii\data\Pagination;

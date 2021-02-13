@@ -2,12 +2,12 @@
 
 /**
  * @var $this yii\web\View
- * @var FavouriteProduct[] $favouriteProducts
+ * @var Favourite[] $favouriteProducts
  * @var Pagination $pagination
  */
 
 use common\widgets\Cards;
-use frontend\models\FavouriteProduct;
+use common\models\Favourite;
 use yii\data\Pagination;
 use yii\helpers\Html;
 

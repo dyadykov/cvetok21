@@ -3,7 +3,7 @@
 
 /* @var ActiveDataProvider $dataProvider */
 
-use frontend\models\Cart;
+use common\models\Cart;
 use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
@@ -26,15 +26,10 @@ echo GridView::widget([
             }
         ],
         [
-            'label' => 'Товары',
-            'format' => 'html',
+            'label' => 'Товар',
             'value' => function ($model) {
                 /** @var Cart $model */
-                $productLinks = [];
-                foreach ($model->products as $product) {
-                    $productLinks[] = "<a href='/product/view?id=$product->id'>$product->title</a>";
-                }
-                return implode(", ", $productLinks) ?: "пусто";
+                return $model->product->title;
             }
         ],
         'buttons' => [

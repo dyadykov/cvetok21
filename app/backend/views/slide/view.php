@@ -1,6 +1,6 @@
 <?php
 
-use frontend\models\Slide;
+use common\models\Slide;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 /** @var Slide $model */

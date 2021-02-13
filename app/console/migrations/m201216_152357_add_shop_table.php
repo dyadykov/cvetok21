@@ -1,6 +1,5 @@
 <?php
 
-use frontend\models\Shop;
 use yii\db\Migration;
 
 /**
@@ -10,7 +9,7 @@ class m201216_152357_add_shop_table extends Migration
 {
     public function safeUp()
     {
-        $this->createTable(Shop::tableName(), [
+        $this->createTable('shop', [
             'id' => $this->primaryKey(),
             'title' => $this->string(),
             'description' => $this->string(),
@@ -26,6 +25,6 @@ class m201216_152357_add_shop_table extends Migration
 
     public function safeDown()
     {
-        $this->dropTable(Shop::tableName());
+        $this->dropTable('shop');
     }
 }

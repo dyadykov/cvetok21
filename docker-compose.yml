@@ -16,6 +16,7 @@ services:
     ports:
       - 2080:2080
       - 3080:3080
+      - 4080:4080
     volumes:
       - ./docker/nginx/local.conf:/etc/nginx/conf.d/local.conf
     volumes_from:
@@ -47,6 +48,7 @@ services:
       - app
       - mysql
     volumes:
+      - ./docker/php/cron:/cron
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     volumes_from:
       - app

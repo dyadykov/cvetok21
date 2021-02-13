@@ -1,7 +1,7 @@
 <?php
 
 
-namespace frontend\models;
+namespace common\models;
 
 
 use yii\db\ActiveRecord;
@@ -31,6 +31,7 @@ class Slide extends ActiveRecord
             [['id', 'pos'], 'integer', 'message' => 'Поле "{attribute}" должно быть числом'],
             [['src', 'url', 'alt'], 'string'],
             ['isActive', 'boolean'],
+            ['isActive', 'required'],
             [['pos', 'src', 'url', 'alt'], 'required', 'message' => 'Поле "{attribute}" не может быть пустым.'],
         ];
     }

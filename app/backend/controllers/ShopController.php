@@ -4,7 +4,7 @@
 namespace backend\controllers;
 
 
-use frontend\models\Shop;
+use common\models\Shop;
 
 class ShopController extends CommonController
 {

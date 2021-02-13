@@ -1,7 +1,7 @@
 <?php
 
 
-namespace frontend\models;
+namespace common\models;
 
 
 use yii\db\ActiveRecord;
@@ -10,24 +10,25 @@ use yii\db\ActiveRecord;
  * Class Product
  *
  * @property integer $id ID
- * @property integer $cart_id id корзины
+ * @property integer $user_id id пользователя
  * @property integer $product_id id товара
  * @property integer $quantity количество товара
- * @property Product $product
+ * @property Product $product товар
+ * @property User $user пользователь
  *
  * @package frontend\models
  */
-class CartProduct extends ActiveRecord
+class Cart extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{%cart_product}}';
+        return '{{%cart}}';
     }
 
     public function rules()
     {
         return [
-            [['id', 'cart_id', 'product_id', 'quantity'], 'integer'],
+            [['id', 'user_id', 'product_id', 'quantity'], 'integer'],
         ];
     }
 
@@ -35,7 +36,7 @@ class CartProduct extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cart_id' => 'id корзины',
+            'user_id' => 'id пользователя',
             'product_id' => 'id товара',
             'quantity' => 'количество товара',
         ];
@@ -44,5 +45,10 @@ class CartProduct extends ActiveRecord
     public function getProduct()
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

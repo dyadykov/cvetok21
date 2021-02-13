@@ -4,7 +4,7 @@
 namespace backend\controllers;
 
 
-use frontend\models\Favourite;
+use common\models\Favourite;
 
 class FavouriteController extends CommonController
 {

@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 use common\models\User;
+use common\models\Favourite;
 use Yii;
 use yii\data\Pagination;
 
@@ -15,13 +16,19 @@ class FavouriteController extends CommonController
     {
         /** @var User $user */
         $user = Yii::$app->user->getIdentity();
-        $favourite = $user->favourite;
+        $favourite = $user->getFavourite();
 
-        $pagination = new Pagination(['totalCount' => $favourite->getProducts()->count()]);
+        $pagination = new Pagination(['totalCount' => $favourite->count()]);
         $pagination->setPageSize(self::PAGE_SIZE);
 
+        $favouriteProducts = [];
+        /** @var Favourite $favourite */
+        foreach ($user->favourite as $favourite) {
+            $favouriteProducts[] = $favourite->product;
+        }
+
         return $this->render('index', [
-            'favouriteProducts' => $favourite->products,
+            'favouriteProducts' => $favouriteProducts,
             'pagination' => $pagination,
         ]);
     }

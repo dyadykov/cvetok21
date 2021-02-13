@@ -1,6 +1,6 @@
 <?php
 
-use frontend\models\Product;
+use common\models\Product;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 

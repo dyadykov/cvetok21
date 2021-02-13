@@ -91,13 +91,13 @@ class Cards
             } else {
                 /** @var User $user */
                 $user = Yii::$app->user->getIdentity();
-                $cartProductsIds = $user->cart->getCartProducts()->select('product_id')->column();
+                $cartProductsIds = $user->getCart()->select('product_id')->column();
                 $button = !in_array($model->id, $cartProductsIds)
                     ? '<button type = "button" class="btn btn-danger btn-block ' . self::ADD_TO_CART . '">Добавить в корзину</button>'
                     : '<a class="btn btn-outline-danger btn-block" href="/cart">Товар в корзине</a>';
 
 
-                $favouriteProductsIds = $user->favourite->getFavouriteProducts()->select('product_id')->column();
+                $favouriteProductsIds = $user->getFavourite()->select('product_id')->column();
                 $favouriteIcon = !in_array($model->id, $favouriteProductsIds)
                     ? FAR::icon('heart', ['class' => [self::ADD_TO_FAV, 'btn p-0 m-2']])->size(FontAwesome::SIZE_2X)
                     : FontAwesome::icon('heart', ['class' => [self::DROP_FROM_FAV, 'btn p-0 m-2']])->size(FontAwesome::SIZE_2X);

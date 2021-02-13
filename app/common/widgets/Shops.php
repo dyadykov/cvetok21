@@ -5,7 +5,7 @@ namespace common\widgets;
 
 
 use Exception;
-use frontend\models\Shop;
+use common\models\Shop;
 use mirocow\yandexmaps\Canvas;
 use mirocow\yandexmaps\Map;
 use mirocow\yandexmaps\objects\Placemark;

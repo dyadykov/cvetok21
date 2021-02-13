@@ -1,7 +1,7 @@
 <?php
 
 use common\models\User;
-use frontend\models\Product;
+use common\models\Product;
 use kartik\select2\Select2;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
@@ -22,10 +22,10 @@ echo $form->field($model, 'user_id')->label('Пользователь')->widget(
         'allowClear' => true
     ],
 ]);
-echo $form->field($model, 'products')->label('Продукты')->widget(Select2::class, [
-    'attribute' => 'products',
+echo $form->field($model, 'product_id')->label('Продукты')->widget(Select2::class, [
+    'attribute' => 'product_id',
     'data' => ArrayHelper::map(Product::find()->asArray()->all(), 'id', 'title'),
-    'options' => ['placeholder' => 'Выберите продукты', 'multiple' => true],
+    'options' => ['placeholder' => 'Выберите продукты'],
     'pluginOptions' => [
         'allowClear' => true
     ],

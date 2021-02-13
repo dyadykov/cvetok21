@@ -5,9 +5,9 @@ namespace frontend\controllers;
 
 
 use common\models\User;
-use frontend\models\CartProduct;
-use frontend\models\FavouriteProduct;
-use frontend\models\Product;
+use common\models\Cart;
+use common\models\Favourite;
+use common\models\Product;
 use frontend\models\SearchForm;
 use Yii;
 use yii\data\Pagination;
@@ -53,13 +53,13 @@ class CatalogController extends CommonController
     public function actionAddToCart()
     {
         $productId = Yii::$app->request->post()['product_id'];
-        $cart = Yii::$app->user->getIdentity()->cart;
+        $userId = Yii::$app->user->getIdentity()->id;
 
-        $cartProduct = CartProduct::find()->where(['cart_id' => $cart->id, 'product_id' => $productId])->one()
-            ?: new CartProduct(['cart_id' => $cart->id, 'product_id' => $productId]);
+        $cart = Cart::find()->where(['user_id' => $userId, 'product_id' => $productId])->one()
+            ?: new Cart(['user_id' => $userId, 'product_id' => $productId]);
 
-        $cartProduct->quantity += 1;
-        $cartProduct->save();
+        $cart->quantity += 1;
+        $cart->save();
 
         Yii::$app->session->setFlash('success', 'Добавлено в коризну');
     }
@@ -67,13 +67,10 @@ class CatalogController extends CommonController
     public function actionAddToFav()
     {
         $productId = Yii::$app->request->post()['product_id'];
-        /** @var User $user */
-        $user = Yii::$app->user->getIdentity();
-        $favourite = $user->favourite;
+        $userId = Yii::$app->user->getIdentity()->id;
 
-        $favouriteProduct = new FavouriteProduct(['favourite_id' => $favourite->id, 'product_id' => $productId]);
-
-        $favouriteProduct->save();
+        $favourite = new Favourite(['user_id' => $userId, 'product_id' => $productId]);
+        $favourite->save();
 
         Yii::$app->session->setFlash('success', 'Добавлено в избранное');
     }
@@ -81,14 +78,10 @@ class CatalogController extends CommonController
     public function actionDropFromFav()
     {
         $productId = Yii::$app->request->post()['product_id'];
+        $userId = Yii::$app->user->getIdentity()->id;
 
-        /** @var User $user */
-        $user = Yii::$app->user->getIdentity();
-        $favourite = $user->favourite;
-
-        $favouriteProduct = FavouriteProduct::find()->where(['favourite_id' => $favourite->id, 'product_id' => $productId])->one();
-
-        $favouriteProduct->delete();
+        $favourite = Favourite::find()->where(['user_id' => $userId, 'product_id' => $productId])->one();
+        $favourite->delete();
 
         Yii::$app->session->setFlash('danger', 'Удалено из избранного');
     }

@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 
 use common\widgets\Shops;
-use frontend\models\Shop;
+use common\models\Shop;
 use yii\helpers\Html;
 
 $this->title = 'Контакты';

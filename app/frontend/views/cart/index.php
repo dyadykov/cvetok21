@@ -2,7 +2,7 @@
 
 /**
  * @var $this yii\web\View
- * @var \frontend\models\CartProduct[] $cartProducts
+ * @var \common\models\Cart[] $cartProducts
  */
 
 use common\widgets\Cart;

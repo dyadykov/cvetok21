@@ -4,7 +4,7 @@
 namespace backend\controllers;
 
 
-use frontend\models\Product;
+use common\models\Product;
 
 class ProductController extends CommonController
 {

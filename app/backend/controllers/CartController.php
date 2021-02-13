@@ -4,7 +4,7 @@
 namespace backend\controllers;
 
 
-use frontend\models\Cart;
+use common\models\Cart;
 
 class CartController extends CommonController
 {

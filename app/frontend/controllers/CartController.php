@@ -5,7 +5,7 @@ namespace frontend\controllers;
 
 
 use common\models\User;
-use frontend\models\CartProduct;
+use common\models\Cart;
 use Yii;
 use yii\filters\AccessControl;
 
@@ -31,12 +31,9 @@ class CartController extends CommonController
     {
         /** @var User $user */
         $user = Yii::$app->user->getIdentity();
-        $cart = $user->cart;
-
-        $cartProducts = $cart->cartProducts ?: [];
 
         return $this->render('index', [
-            'cartProducts' => $cartProducts,
+            'cartProducts' => $user->cart ?: [],
         ]);
     }
 
@@ -45,10 +42,10 @@ class CartController extends CommonController
         $data = Yii::$app->request->post();
         $id = $data['id'];
         $quantity = $data['quantity'];
-        $cartProduct = CartProduct::findOne($id);
-        $oldQuantity = $cartProduct->quantity;
-        $cartProduct->quantity = $quantity;
-        $cartProduct->save();
+        $cart = Cart::findOne($id);
+        $oldQuantity = $cart->quantity;
+        $cart->quantity = $quantity;
+        $cart->save();
 
         if ($oldQuantity > $quantity) {
             $action = "Убрали";
@@ -58,13 +55,15 @@ class CartController extends CommonController
             $flashType = 'success';
         }
 
-        $productTitle = $cartProduct->product->title;
+        $productTitle = $cart->product->title;
         Yii::$app->session->setFlash($flashType, "$action $productTitle");
     }
 
     public function actionDelete()
     {
-        Yii::$app->user->getIdentity()->cart->unlinkAll('products', true);
+        /** @var User $user */
+        $user = Yii::$app->user->getIdentity();
+        Cart::deleteAll(['user_id' => $user->id]);
 
         $this->redirect('/main');
     }

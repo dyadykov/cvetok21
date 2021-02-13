@@ -3,8 +3,8 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Product;
-use frontend\models\Slide;
+use common\models\Product;
+use common\models\Slide;
 use yii\data\Pagination;
 
 class MainController extends CommonController

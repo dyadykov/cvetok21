@@ -1,6 +1,5 @@
 <?php
 
-use frontend\models\Slide;
 use yii\db\Migration;
 
 /**
@@ -13,7 +12,7 @@ class m201212_160839_add_slide_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable(Slide::tableName(), [
+        $this->createTable('slide', [
             'id' => $this->primaryKey(),
             'src' => $this->string(),
             'alt' => $this->string(),
@@ -28,6 +27,6 @@ class m201212_160839_add_slide_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable(Slide::tableName());
+        $this->dropTable('slide');
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-use frontend\models\Cart;
-use frontend\models\CartProduct;
 use yii\db\Migration;
 
 /**
@@ -11,12 +9,12 @@ class m201219_155431_add_cart_table extends Migration
 {
     public function safeUp()
     {
-        $this->createTable(Cart::tableName(), [
+        $this->createTable('cart', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
         ]);
 
-        $this->createTable(CartProduct::tableName(),[
+        $this->createTable('cart_product', [
             'id' => $this->primaryKey(),
             'cart_id' => $this->integer(),
             'product_id' => $this->integer(),
@@ -26,7 +24,7 @@ class m201219_155431_add_cart_table extends Migration
 
     public function safeDown()
     {
-        $this->dropTable(CartProduct::tableName());
-        $this->dropTable(Cart::tableName());
+        $this->dropTable('cart_product');
+        $this->dropTable('cart');
     }
 }

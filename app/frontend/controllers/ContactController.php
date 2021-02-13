@@ -3,7 +3,7 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Shop;
+use common\models\Shop;
 
 class ContactController extends CommonController
 {

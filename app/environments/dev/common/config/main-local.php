@@ -3,9 +3,16 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => getenv('DB_DSN'),
             'username' => 'root',
-            'password' => '',
+            'password' => getenv('DB_PASSWORD'),
+            'charset' => 'utf8',
+        ],
+        'sourceDb' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => getenv('SOURCE_DB_DSN'),
+            'username' => 'root',
+            'password' => getenv('SOURCE_DB_PASSWORD'),
             'charset' => 'utf8',
         ],
         'mailer' => [

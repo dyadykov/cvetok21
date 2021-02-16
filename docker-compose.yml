@@ -17,6 +17,7 @@ services:
       - 2080:2080
       - 3080:3080
       - 4080:4080
+      - 5080:5080
     volumes:
       - ./docker/nginx/local.conf:/etc/nginx/conf.d/local.conf
     volumes_from:
@@ -56,6 +57,19 @@ services:
       - "test.local:192.168.11.1"
     links:
       - mysql
+    env_file:
+      - ./app/.env
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    expose:
+      - 6080
+    ports:
+      - 6080:8080
+    volumes_from:
+      - app
+    environment:
+      API_URL: http://localhost:5080
 
 volumes:
   app:

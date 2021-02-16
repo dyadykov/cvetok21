@@ -8,36 +8,11 @@ use common\models\LoginForm;
 use common\models\User;
 use frontend\models\SignupForm;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\auth\HttpHeaderAuth;
 
 class UserController extends CommonController
 {
-    public function behaviors()
-    {
-        $except = ['signup', 'login'];
-
-        return array_merge(parent::behaviors(), [
-            'authenticator' => [
-                'class' => HttpHeaderAuth::class,
-                'except' => $except,
-            ],
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => $except,
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ]);
-    }
+    /** @var array методы используемые без аутентификации */
+    public array $noAuth = ['signup', 'login'];
 
     public function actionSignup()
     {
@@ -53,9 +28,9 @@ class UserController extends CommonController
 
     public function actionLogin()
     {
-        $model = new LoginForm();
         $params['LoginForm'] = Yii::$app->request->post();
 
+        $model = new LoginForm();
         if ($model->load($params) && $model->login()) {
             return User::findByUsername($model->username)->getAuthKey();
         } else {

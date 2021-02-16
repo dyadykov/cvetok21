@@ -1,0 +1,798 @@
+openapi: 3.0.1
+info:
+  title: Swagger Cvetok21
+  description: 'Cvetok21'
+  termsOfService: http://cvetok21.ru/terms/
+  contact:
+    email: apiteam@cvetok21.ru
+  license:
+    name: Mysql
+  version: latest
+externalDocs:
+  description: Find out more about Cvetok21
+  url: http://cvetok21.ru
+servers:
+  - url: http://localhost:4080/v1
+paths:
+  /product:
+    get:
+      tags:
+        - Продукты
+      summary: Найти товары
+      description: Массив товаров
+      parameters:
+        - name: fields
+          in: query
+          description: Набор выдаваемых полей
+          required: false
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - id
+                - src
+                - alt
+                - isActive
+                - title
+                - description
+                - price
+                - isPopular
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        400:
+          description: Invalid status value
+          content: { }
+    post:
+      tags:
+        - Продукты
+      summary: Запостить продукт
+      description: Добавить товар в БД
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+      security:
+        - api_key: [ ]
+  /product/{productId}:
+    get:
+      tags:
+        - Продукты
+      summary: Найти 1 продукт
+      description: Returns a single product
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Product not found
+          content: { }
+    put:
+      tags:
+        - Продукты
+      summary: Обновить данные одного продукта
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product that needs to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        422:
+          description: Data Validation Failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationFailed'
+      security:
+        - api_key: [ ]
+    delete:
+      tags:
+        - Продукты
+      summary: Удалить 1 продукт
+      parameters:
+        - name: productId
+          in: path
+          description: Product id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Product not found
+          content: { }
+      security:
+        - api_key: [ ]
+  /shop:
+    get:
+      tags:
+        - Магазины
+      summary: Найти товары
+      description: Массив товаров
+      parameters:
+        - name: fields
+          in: query
+          description: Набор выдаваемых полей
+          required: false
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - id
+                - src
+                - alt
+                - isActive
+                - title
+                - description
+                - price
+                - isPopular
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shop'
+        400:
+          description: Invalid status value
+          content: { }
+    post:
+      tags:
+        - Магазины
+      summary: Запостить продукт
+      description: Добавить товар в БД
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shop'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+      security:
+        - api_key: [ ]
+  /shop/{shopId}:
+    get:
+      tags:
+        - Магазины
+      summary: Найти 1 продукт
+      description: Returns a single shop
+      parameters:
+        - name: shopId
+          in: path
+          description: ID of shop to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Shop not found
+          content: { }
+    put:
+      tags:
+        - Магазины
+      summary: Обновить данные одного продукта
+      parameters:
+        - name: shopId
+          in: path
+          description: ID of shop that needs to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shop'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        422:
+          description: Data Validation Failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationFailed'
+      security:
+        - api_key: [ ]
+    delete:
+      tags:
+        - Магазины
+      summary: Удалить 1 продукт
+      parameters:
+        - name: shopId
+          in: path
+          description: Shop id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Shop not found
+          content: { }
+      security:
+        - api_key: [ ]
+  /slide:
+    get:
+      tags:
+        - Слайды
+      summary: Найти товары
+      description: Массив товаров
+      parameters:
+        - name: fields
+          in: query
+          description: Набор выдаваемых полей
+          required: false
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - id
+                - src
+                - alt
+                - isActive
+                - title
+                - description
+                - price
+                - isPopular
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slide'
+        400:
+          description: Invalid status value
+          content: { }
+    post:
+      tags:
+        - Слайды
+      summary: Запостить продукт
+      description: Добавить товар в БД
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlideFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slide'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+      security:
+        - api_key: [ ]
+  /slide/{slideId}:
+    get:
+      tags:
+        - Слайды
+      summary: Найти 1 продукт
+      description: Returns a single slide
+      parameters:
+        - name: slideId
+          in: path
+          description: ID of slide to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slide'
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Slide not found
+          content: { }
+    put:
+      tags:
+        - Слайды
+      summary: Обновить данные одного продукта
+      parameters:
+        - name: slideId
+          in: path
+          description: ID of slide that needs to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlideFields'
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slide'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        422:
+          description: Data Validation Failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationFailed'
+      security:
+        - api_key: [ ]
+    delete:
+      tags:
+        - Слайды
+      summary: Удалить 1 продукт
+      parameters:
+        - name: slideId
+          in: path
+          description: Slide id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Slide not found
+          content: { }
+      security:
+        - api_key: [ ]
+
+
+  /user/signup:
+    post:
+      tags:
+        - Пользователь
+      summary: Creates list of users with given input array
+      operationId: createUsersWithListInput
+      requestBody:
+        description: List of user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        default:
+          description: HTTP OK
+          content: { }
+  /user/login:
+    post:
+      tags:
+        - Пользователь
+      summary: Logs user into the system
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  description: The user name for login
+                  type: string
+                  example: "demo"
+                password:
+                  description: The password for login in clear text
+                  type: string
+                  example: "qwerty"
+              required:
+                - username
+                - password
+      responses:
+        200:
+          description: HTTP OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid username/password supplied
+          content: { }
+  /user/logout:
+    get:
+      tags:
+        - Пользователь
+      summary: Logs out current logged in user session
+      operationId: logoutUser
+      responses:
+        default:
+          description: HTTP OK
+          content: { }
+      security:
+        - api_key: [ ]
+
+components:
+  schemas:
+
+    ProductFields:
+      type: object
+      properties:
+        src:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        alt:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        isActive:
+          type: boolean
+          description: "бла бла бла"
+          example: true
+        title:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        description:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        price:
+          type: integer
+          description: "бла бла бла"
+          example: 1
+        isPopular:
+          type: boolean
+          description: "бла бла бла"
+          example: false
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "бла бла бла"
+          example: 1
+        src:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        alt:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        isActive:
+          type: boolean
+          description: "бла бла бла"
+          example: true
+        title:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        description:
+          type: string
+          description: "бла бла бла"
+          example: 1
+        price:
+          type: integer
+          description: "бла бла бла"
+          example: 1
+        isPopular:
+          type: boolean
+          description: "бла бла бла"
+          example: false
+
+    ShopFields:
+      type: object
+      properties:
+        title:
+          description: Название
+          type: string
+          example: 1
+        description:
+          description: Описание
+          type: string
+          example: 1
+        lat:
+          description: Долгота
+          type: string
+          example: 1
+        lon:
+          description: Широта
+          type: string
+          example: 1
+        worktime:
+          description: Рабочие часы в будни
+          type: string
+          example: 1
+        worktime_sat:
+          description: Рабочие часы в субботу
+          type: string
+          example: 1
+        worktime_sun:
+          description: Рабочие часы в воскресенье
+          type: string
+          example: 1
+        phone:
+          description: Телефон
+          type: string
+          example: 1
+        address:
+          description: Адрес
+          type: string
+          example: 1
+
+    Shop:
+      type: object
+      properties:
+        id:
+          description: ID
+          type: integer
+          example: 1
+        title:
+          description: Название
+          type: string
+          example: 1
+        description:
+          description: Описание
+          type: string
+          example: 1
+        lat:
+          description: Долгота
+          type: string
+          example: 1
+        lon:
+          description: Широта
+          type: string
+          example: 1
+        worktime:
+          description: Рабочие часы в будни
+          type: string
+          example: 1
+        worktime_sat:
+          description: Рабочие часы в субботу
+          type: string
+          example: 1
+        worktime_sun:
+          description: Рабочие часы в воскресенье
+          type: string
+          example: 1
+        phone:
+          description: Телефон
+          type: string
+          example: 1
+        address:
+          description: Адрес
+          type: string
+          example: 1
+
+    SlideFields:
+      type: object
+      properties:
+        pos:
+          description: "бла бла бла"
+          type: integer
+          example: 1
+        src:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        url:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        alt:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        isActive:
+          description: "бла бла бла"
+          type: boolean
+          example: 1
+
+    Slide:
+      type: object
+      properties:
+        id:
+          description: "бла бла бла"
+          type: integer
+          example: 1
+        pos:
+          description: "бла бла бла"
+          type: integer
+          example: 1
+        src:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        url:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        alt:
+          description: "бла бла бла"
+          type: string
+          example: 1
+        isActive:
+          description: "бла бла бла"
+          type: boolean
+          example: 1
+
+    Unauthorized:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: "Внутренний код ошибки"
+          example: 0
+        message:
+          type: string
+          description: "Сообщение об ошибке"
+          example: "Your request was made with invalid credentials."
+
+    ValidationFailed:
+      type: object
+      properties:
+        field:
+          type: string
+          description: "Название поля модели"
+          example: "field"
+        message:
+          type: string
+          description: "Сообщение об ошибке"
+          example: "Your request was made with invalid credentials."
+
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: "бла бла бла"
+          example: "demo"
+        email:
+          type: string
+          description: "бла бла бла"
+          example: "demo@demo.demo"
+        password:
+          type: string
+          description: "бла бла бла"
+          example: "qwerty"
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+
+tags:
+  - name: Продукты
+    description: Справочник продуктов
+  - name: Магазины
+    description: Справочник магазинов
+  - name: Слайды
+    description: Справочник слайдов
+  - name: Пользователь
+    description: Работа с пользователем

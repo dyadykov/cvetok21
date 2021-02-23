@@ -13,6 +13,8 @@ use yii\web\Response;
 
 abstract class CommonController extends Controller
 {
+    public $noAuth = [];
+
     public function behaviors()
     {
         return [

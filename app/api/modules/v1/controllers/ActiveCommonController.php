@@ -47,6 +47,7 @@ abstract class ActiveCommonController extends ActiveController
                 'cors' => [
                     'Origin' => ['*'],
                     'Access-Control-Allow-Headers' => ['*'],
+                    'Access-Control-Expose-Headers' => ['*'],
                 ]
             ],
         ]);

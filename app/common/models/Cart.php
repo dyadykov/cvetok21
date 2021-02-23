@@ -51,4 +51,15 @@ class Cart extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function fields()
+    {
+        return [
+            'product_id',
+            'quantity',
+            'price' => function(){
+                return $this->product->price;
+            },
+        ];
+    }
 }
